@@ -8,16 +8,20 @@ import List from 'material-ui/List';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 import { mailFolderListItems, otherMailFolderListItems } from './tileData';
+import { FormControl, FormHelperText } from 'material-ui/Form';
+import Input, { InputLabel, InputAdornment } from 'material-ui/Input';
+import TextField from 'material-ui/TextField';
+import Paper from 'material-ui/Paper';
 import Grid from 'material-ui/Grid';
 
-// Custom components
-import MyCard from './components/Card'
+const drawerWidth = 240;
 
-const drawerWidth = 280;
+
 
 const styles = theme => ({
   root: {
     flexGrow: 1,
+    height: 430,
     zIndex: 1,
     overflow: 'hidden',
     position: 'relative',
@@ -40,14 +44,37 @@ const styles = theme => ({
 });
 
 function ClippedDrawer(props) {
+
+  const { state } = {
+    amount: '',
+    password: '',
+    weight: '',
+    weightRange: '',
+    showPassword: false,
+  };
+
+  handleChange = prop => event => {
+    this.setState({ [prop]: event.target.value });
+  };
+
+  handleMouseDownPassword = event => {
+    event.preventDefault();
+  };
+
+  handleClickShowPasssword = () => {
+    this.setState({ showPassword: !this.state.showPassword });
+  };
+
   const { classes } = props;
+
+  
 
   return (
     <div className={classes.root}>
       <AppBar position="absolute" className={classes.appBar}>
         <Toolbar>
           <Typography variant="title" color="inherit" noWrap>
-            Clipped drawer
+            My App
           </Typography>
         </Toolbar>
       </AppBar>
@@ -64,20 +91,21 @@ function ClippedDrawer(props) {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-		<Grid container spacing={24}>
-			<Grid item xs={12} sm={4}>
-				<MyCard />
-			</Grid>
-
-			<Grid item xs={12} sm={4}>
-				<MyCard />
-			</Grid>
-
-			<Grid item xs={12} sm={4}>
-				<MyCard />
-			</Grid>
-
-      	</Grid>
+        <Grid item xs={12}>
+          <Paper className={classes.paper}>
+            <FormControl fullWidth className={classes.margin}>
+              <InputLabel htmlFor="adornment-amount">Amount</InputLabel>
+              <Input
+                id="adornment-amount"
+                value="asdasdasd"
+                onChange={this.state.amount}
+                startAdornment={<InputAdornment position="start">$</InputAdornment>}
+            />
+          </FormControl>
+          </Paper>
+        </Grid>
+        
+        
       </main>
     </div>
   );
